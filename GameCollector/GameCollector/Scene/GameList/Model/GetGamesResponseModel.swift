@@ -9,6 +9,6 @@ import Foundation
 
 struct GetGamesResponseModel: Codable {
     let count: Int
-    let next, previous: String
+    let next, previous: String?
     let results: [GameModel]
 }

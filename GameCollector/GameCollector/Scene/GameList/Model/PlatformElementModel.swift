@@ -10,15 +10,7 @@ import Foundation
 // MARK: - PlatformElementModel
 struct PlatformElementModel: Codable {
     let platform: PlatformPlatform
-    let releasedAt: String
-    let requirementsEn, requirementsRu: JSONNull?
-
-    enum CodingKeys: String, CodingKey {
-        case platform
-        case releasedAt = "released_at"
-        case requirementsEn = "requirements_en"
-        case requirementsRu = "requirements_ru"
-    }
+   
 }
 // MARK: - PlatformPlatform
 struct PlatformPlatform: Codable {
