@@ -140,7 +140,6 @@
 				56A154D6294114550013DAE0 /* Main.storyboard */,
 				56A154DC2941145A0013DAE0 /* Assets.xcassets */,
 				56A154DE2941145A0013DAE0 /* LaunchScreen.storyboard */,
-				56A154E12941145A0013DAE0 /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -403,6 +402,7 @@
 		56A154CF294114550013DAE0 /* GameCollector */ = {
 			isa = PBXGroup;
 			children = (
+				56A154E12941145A0013DAE0 /* Info.plist */,
 				566A7BD22944C0A900B15729 /* App */,
 				566A7BD12944C0A000B15729 /* Core */,
 				566A7BD02944C09700B15729 /* Scene */,

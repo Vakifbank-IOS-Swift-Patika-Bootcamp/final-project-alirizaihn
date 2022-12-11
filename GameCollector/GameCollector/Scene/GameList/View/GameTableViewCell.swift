@@ -12,6 +12,7 @@ final class GameTableViewCell: UITableViewCell {
     @IBOutlet private weak var gameName: UILabel!
 
     func configureCell( name: String  ){
+        print("vakasd: \(name)")
         gameName.text = name
     }
 }
