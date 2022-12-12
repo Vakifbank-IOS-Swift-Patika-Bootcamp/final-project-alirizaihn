@@ -18,11 +18,8 @@ final class GameListViewController: BaseViewController {
         }
     }
     private var viewModel: GameListViewModelProtocol = GameListViewModel()
-    let searchController = UISearchController()
-    var games: [GameModel]?
-    var filteredGames = [GameModel]()
-    var scopeButtonPressed = false
-    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var timer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -62,10 +59,15 @@ extension GameListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell,
               let model = viewModel.getGame(at: indexPath.row) else { return UITableViewCell() }
-        print("blasda\(model)")
         cell.configureCell(model: model)
         return cell
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.item == viewModel.getGamesCount() - 1 {
+            viewModel.fetchMore()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("item selected")
     }
@@ -73,28 +75,26 @@ extension GameListViewController : UITableViewDelegate, UITableViewDataSource {
     
 }
 extension GameListViewController : UISearchResultsUpdating, UISearchBarDelegate {
-    
+  
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        timer.invalidate()
+      print("evla*\(searchText)")
+//            self.gameListTableView.setContentOffset(.zero, animated: true)
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.searchGames(searchText: String(searchText))
+            })
+        
+    }
     func updateSearchResults(for searchController: UISearchController) {
-        //        let searchBar = searchController.searchBar
-        //        let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        //        let searchText = searchBar.text!
-        //
+                let searchBar = searchController.searchBar
+                let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+                let searchText = searchBar.text!
+     
+     
         //        filterForSearchTextAndScopeButton(searchText: searchText, scopeButton: scopeButton)
     }
-    func filterForSearchTextAndScopeButton(searchText: String, scopeButton: String = "All") {
-        //        filteredGames = games?.filter {
-        //            game in
-        //            let scopeMatch = (scopeButton == "All" )
-        //            if(searchController.searchBar.text != "") {
-        //                let searchTextMatch =  game.name.contains(searchText.lowercased())
-        //                return scopeMatch && searchTextMatch
-        //            }
-        //            else {
-        //                return scopeMatch
-        //            }
-        //        } ?? []
-        //        gameListTableView.reloadData()
-    }
+  
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         //        searchController.searchBar.text = ""
         //        scopeButtonPressed = true

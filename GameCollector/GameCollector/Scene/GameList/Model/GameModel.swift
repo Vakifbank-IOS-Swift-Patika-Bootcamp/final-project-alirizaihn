@@ -8,17 +8,17 @@
 import Foundation
 
 struct GameModel: Codable {
-    let id: Int
-    let slug, name, released: String
-    let backgroundImage: String
-    let rating: Double
-    let ratingTop, ratingsCount, metacritic, playtime: Int
-    let suggestionsCount: Int
-    let updated: String
-    let reviewsCount: Int
-    let saturatedColor, dominantColor: String
-    let platforms: [PlatformElementModel]
-    let genres: [GenreModel]
+    let id: Int?
+    let slug, name, released: String?
+    let backgroundImage: String?
+    let rating: Double?
+    let ratingTop, ratingsCount, metacritic, playtime: Int?
+    let suggestionsCount: Int?
+    let updated: String?
+    let reviewsCount: Int?
+    let saturatedColor, dominantColor: String?
+    let platforms: [PlatformElementModel]?
+    let genres: [GenreModel]?
 
     enum CodingKeys: String, CodingKey {
         case id, slug, name, released

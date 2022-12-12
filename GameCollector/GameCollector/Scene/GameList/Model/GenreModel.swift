@@ -9,10 +9,10 @@ import Foundation
 
 // MARK: - Genre
 struct GenreModel: Codable {
-    let id: Int
-    let name, slug: String
-    let gamesCount: Int
-    let imageBackground: String
+    let id: Int?
+    let name, slug: String?
+    let gamesCount: Int?
+    let imageBackground: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name, slug
