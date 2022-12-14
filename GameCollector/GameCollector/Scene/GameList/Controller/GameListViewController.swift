@@ -20,16 +20,15 @@ final class GameListViewController: BaseViewController {
     private var viewModel: GameListViewModelProtocol = GameListViewModel()
     private let searchController = UISearchController(searchResultsController: nil)
     private var timer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        initSearchController()
         gameListTableView.tableFooterView = UIView()
         viewModel.delegate = self
         viewModel.fetchGames()
         viewModel.fetchGenres()
-        
     }
+    
     func initSearchController() {
         searchController.loadViewIfNeeded()
         searchController.searchResultsUpdater = self
@@ -43,29 +42,35 @@ final class GameListViewController: BaseViewController {
         self.navigationItem.searchController = searchController
         self.navigationItem.title = "Game List"
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up.and.down.text.horizontal"), style: UIBarButtonItem.Style.done, target: self, action: #selector(showSearch))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.up.and.down.text.horizontal"),
+            style: UIBarButtonItem.Style.done,
+            target: self,
+            action: #selector(showSearch)
+        )
     }
-    @objc func showSearch () {
+    
+    @objc func showSearch() {
         SortingView.showView() { selectedSortingFilter in
             if let selectedSortingFilter = selectedSortingFilter {
                 self.viewModel.fetchGamesBySortingFilter(sortingFilter: selectedSortingFilter.filterValue())
             }
         }
-        
     }
 }
 
-extension GameListViewController : UITableViewDelegate, UITableViewDataSource {
+extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getGamesCount()
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell,
-              let model = viewModel.getGame(at: indexPath.row) else { return UITableViewCell() }
+            let model = viewModel.getGame(at: indexPath.row) else { return UITableViewCell() }
         cell.configureCell(model: model)
         return cell
     }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.item == viewModel.getGamesCount() - 1 {
             viewModel.fetchMore()
@@ -76,27 +81,27 @@ extension GameListViewController : UITableViewDelegate, UITableViewDataSource {
         print("item selected")
     }
     
-    
 }
-extension GameListViewController : UISearchResultsUpdating, UISearchBarDelegate {
+
+extension GameListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if !(searchBar.text?.isEmpty ?? true){
             viewModel.searchGames(searchText: "")
         }
     }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.searchGames(searchText: String(searchText))
-                
-            })
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.searchGames(searchText: String(searchText))
+        })
     }
+
     func updateSearchResults(for searchController: UISearchController) {
-                let searchBar = searchController.searchBar
-                let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-                let searchText = searchBar.text!
-     
+        let searchBar = searchController.searchBar
+        let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        let searchText = searchBar.text!
      
         //        filterForSearchTextAndScopeButton(searchText: searchText, scopeButton: scopeButton)
     }
@@ -122,24 +127,24 @@ extension GameListViewController : UISearchResultsUpdating, UISearchBarDelegate 
     
     
 }
+
 extension GameListViewController: GameListViewModelDelegate {
     func genreLoaded() {
-        print("Genre=> \(viewModel.getGenresName())")
         self.initSearchController()
     }
-    
+
     func startFetching() {
         self.indicator.startAnimating()
     }
-    
+
     func endingFetching() {
         self.indicator.stopAnimating()
     }
-    
+
     func gameLoaded() {
        gameListTableView.reloadData()
     }
-    
+
     func onError(message: String) {
         self.showErrorAlert(message: message) {
             self.navigationController?.popViewController(animated: true)
