@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - PlatformElementModel
 struct PlatformElementModel: Codable {
-    let platform: PlatformPlatform
+    let platform: PlatformPlatform?
    
 }
 // MARK: - PlatformPlatform

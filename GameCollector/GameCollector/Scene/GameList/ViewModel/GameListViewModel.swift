@@ -12,26 +12,54 @@ protocol GameListViewModelProtocol {
     func getGamesCount() -> Int
     func getGame(at index: Int) -> GameModel?
     func fetchGames()
+    func fetchGenres()
     func searchGames(searchText: String?)
     func fetchMore()
+    func getGenresName() -> [String]?
+    func fetchGameByGenre(genreId: Int?)
+    func getGenre(at index: Int) -> GenreModel?
 }
 
 protocol GameListViewModelDelegate: AnyObject {
     func startFetching()
     func endingFetching()
     func gameLoaded()
+    func genreLoaded()
     func onError(message: String)
 }
 
 final class GameListViewModel : GameListViewModelProtocol {
- 
-  
-
+    func getGenre(at index: Int) -> GenreModel? {
+        self.genres[index]
+    }
+    
+    func fetchGameByGenre(genreId: Int?) {
+        self.selectedGenreId = genreId
+        clearFilter()
+        fetchGames()
+    }
+    
+    func fetchGenres() {
+        GameServisClient.fetchGenres(page: 1, pageSize: 4) { [weak self] gengers, error in
+            guard let self = self else { return }
+            self.genres = gengers ?? []
+            self.delegate?.genreLoaded()
+        }
+    }
+    
+    func getGenresName() -> [String]? {
+      var genreNameArray = genres.map {$0.name ?? ""}
+        genreNameArray.insert("All", at: 0)
+        return genreNameArray
+    }
+    
+    
     private var searchText: String?
     private var page: Int = 1
     weak var delegate: GameListViewModelDelegate?
     private var games: [GameModel] = []
-    private var gengers: [GenreModel] = []
+    private var genres: [GenreModel] = []
+    private var selectedGenreId: Int?
     
     func getGamesCount() -> Int {
         return games.count ?? 0
@@ -41,15 +69,14 @@ final class GameListViewModel : GameListViewModelProtocol {
         games[index]
     }
     
-    
     func fetchGames() {
         self.delegate?.startFetching()
-        GameServisClient.getGameList(searchText: self.searchText, filterText: "", page: self.page) { [weak self] games, error in
+        GameServisClient.getGameList(searchText: self.searchText, genreId: self.selectedGenreId, page: self.page) { [weak self] games, error in
             guard let self = self else { return }
             self.delegate?.endingFetching()
             if let error = error {
                 self.delegate?.onError(message:  error.localizedDescription)
-               return
+                return
             }
             if games?.isEmpty ?? true {
                 if self.page > 1 {
@@ -58,15 +85,16 @@ final class GameListViewModel : GameListViewModelProtocol {
                 self.delegate?.onError(message: "No Game")
                 return
             }
-
+            
             self.games += games ?? []
             self.delegate?.gameLoaded()
-           
         }
-        GameServisClient.fetchGenres(page: 1, pageSize: 5) { [weak self] gengers, error in
-            guard let self = self else { return }
-            print("gaada\(gengers)")
-        }
+        
+        
+    }
+    private func clearFilter() {
+        self.games = []
+        self.page = 1
     }
     
     func fetchMore() {
@@ -76,12 +104,9 @@ final class GameListViewModel : GameListViewModelProtocol {
     
     func searchGames(searchText : String?) {
         self.searchText = searchText
-        self.games = []
-        self.page = 1
+        clearFilter()
         fetchGames()
-       
+        
     }
-    
-    
     
 }

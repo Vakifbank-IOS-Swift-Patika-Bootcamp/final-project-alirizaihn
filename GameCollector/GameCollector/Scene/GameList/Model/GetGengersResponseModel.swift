@@ -8,7 +8,7 @@
 import Foundation
 
 struct GetGengersResponseModel: Codable {
-    let count: Int
+    let count: Int?
     let next, previous: String?
-    let results: [GenreModel]
+    let results: [GenreModel]?
 }

@@ -11,23 +11,31 @@ import Alamofire
 final class GameServisClient {
     static let BASE_URL = "https://api.rawg.io/api"
     
-    static func getGameList(searchText: String?, filterText: String, page: Int, completion: @escaping ([GameModel]?, Error?) -> Void) {
-        let urlString = BASE_URL + "/games" + "?key=" + Constants.API_KEY + "&page=1&page_size=30"
-        let parameters: Parameters = ["key": Constants.API_KEY, "page": page, "page_size":"10", "search": searchText ?? "", "filter":filterText]
+    static func getGameList(searchText: String?, genreId: Int?, page: Int = 1, pageSize: Int = 15, completion: @escaping ([GameModel]?, Error?) -> Void) {
+        let urlString = BASE_URL + "/games"
+        var parameters: Parameters = ["key": Constants.API_KEY, "page": page, "page_size":pageSize]
+        if let searchText = searchText {
+            parameters ["search"] = searchText
+        }
+        if let genreId = genreId {
+            parameters ["genres"] = genreId
+        }
         handleResponse(urlString: urlString, parameters: parameters, responseType: GetGamesResponseModel.self) { responseModel, error in
             completion(responseModel?.results, error)
         }
     }
     
     static func fetchGenres(page: Int, pageSize: Int, completion: @escaping ([GenreModel]?, Error?) -> Void) {
-        var urlString = BASE_URL + "/genres" + "?key=" + Constants.API_KEY + "&page=\(page)&page_size=\(pageSize)"
-        handleResponse(urlString: urlString, parameters: nil, responseType: GetGengersResponseModel.self) { responseModel, error in
+        var urlString = BASE_URL + "/genres"
+        let parameters: Parameters = ["key": Constants.API_KEY, "page": page, "page_size":pageSize]
+        handleResponse(urlString: urlString, parameters: parameters, responseType: GetGengersResponseModel.self) { responseModel, error in
             completion(responseModel?.results, error)
         }
     }
  
     
     static private func handleResponse<T: Decodable>(urlString: String, parameters:Parameters?, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) {
+        print("bakalı\(urlString) \(parameters)")
         AF.request(urlString,parameters: parameters).response { response in
             guard let data = response.value else {
                 DispatchQueue.main.async {
