@@ -29,48 +29,18 @@ protocol GameListViewModelDelegate: AnyObject {
     func onError(message: String)
 }
 
-final class GameListViewModel : GameListViewModelProtocol {
-    func fetchGamesBySortingFilter(sortingFilter: String) {
-        self.selectedSortingFilter = sortingFilter
-        clearFilter()
-        fetchGames()
-    }
-    
-    func getGenre(at index: Int) -> GenreModel? {
-        self.genres[index]
-    }
-    
-    func fetchGameByGenre(genreId: Int?) {
-        self.selectedGenreId = genreId
-        clearFilter()
-        fetchGames()
-    }
-    
-    func fetchGenres() {
-        GameServisClient.fetchGenres(page: 1, pageSize: 4) { [weak self] gengers, error in
-            guard let self = self else { return }
-            self.genres = gengers ?? []
-            self.delegate?.genreLoaded()
-        }
-    }
-    
-    func getGenresName() -> [String]? {
-      var genreNameArray = genres.map {$0.name ?? ""}
-        genreNameArray.insert("All", at: 0)
-        return genreNameArray
-    }
-    
+final class GameListViewModel: GameListViewModelProtocol {
+    weak var delegate: GameListViewModelDelegate?
     
     private var searchText: String?
     private var page: Int = 1
-    weak var delegate: GameListViewModelDelegate?
     private var games: [GameModel] = []
     private var genres: [GenreModel] = []
     private var selectedGenreId: Int?
     private var selectedSortingFilter: String?
     
     func getGamesCount() -> Int {
-        return games.count ?? 0
+        return games.count
     }
     
     func getGame(at index: Int) -> GameModel? {
@@ -78,14 +48,17 @@ final class GameListViewModel : GameListViewModelProtocol {
     }
     
     func fetchGames() {
-        self.delegate?.startFetching()
-        GameServisClient.getGameList(searchText: self.searchText, genreId: self.selectedGenreId, page: self.page, ordering: self.selectedSortingFilter) { [weak self] games, error in
+        delegate?.startFetching()
+        
+        GameServisClient.getGameList(searchText: searchText, genreId: selectedGenreId, page: page, ordering: selectedSortingFilter) { [weak self] games, error in
             guard let self = self else { return }
             self.delegate?.endingFetching()
+            
             if let error = error {
-                self.delegate?.onError(message:  error.localizedDescription)
+                self.delegate?.onError(message: error.localizedDescription)
                 return
             }
+            
             if games?.isEmpty ?? true {
                 if self.page > 1 {
                     self.page -= 1
@@ -97,24 +70,51 @@ final class GameListViewModel : GameListViewModelProtocol {
             self.games += games ?? []
             self.delegate?.gameLoaded()
         }
-        
-        
     }
+    
+    func fetchGenres() {
+        GameServisClient.fetchGenres(page: 1, pageSize: 4) { [weak self] genres, error in
+            guard let self = self else { return }
+            self.genres = genres ?? []
+            self.delegate?.genreLoaded()
+        }
+    }
+    
+    func getGenresName() -> [String]? {
+        var genreNameArray = genres.map { $0.name ?? "" }
+        genreNameArray.insert("All", at: 0)
+        return genreNameArray
+    }
+    
+    func fetchGameByGenre(genreId: Int?) {
+        selectedGenreId = genreId
+        clearFilter()
+        fetchGames()
+    }
+    
+    func getGenre(at index: Int) -> GenreModel? {
+        genres[index]
+    }
+    
+    func fetchGamesBySortingFilter(sortingFilter: String) {
+        selectedSortingFilter = sortingFilter
+        clearFilter()
+        fetchGames()
+    }
+    
     private func clearFilter() {
-        self.games = []
-        self.page = 1
+        games = []
+        page = 1
     }
     
     func fetchMore() {
-        self.page += 1
+        page += 1
         fetchGames()
     }
     
-    func searchGames(searchText : String?) {
+    func searchGames(searchText: String?) {
         self.searchText = searchText
         clearFilter()
         fetchGames()
-        
     }
-    
 }
