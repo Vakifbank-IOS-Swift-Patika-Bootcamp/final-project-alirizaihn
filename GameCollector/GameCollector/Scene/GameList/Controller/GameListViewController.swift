@@ -44,10 +44,13 @@ final class GameListViewController: BaseViewController {
         self.navigationItem.title = "Game List"
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up.and.down.text.horizontal"), style: UIBarButtonItem.Style.done, target: self, action: #selector(showSearch))
-        
-        
     }
     @objc func showSearch () {
+        SortingView.showView() { selectedSortingFilter in
+            if let selectedSortingFilter = selectedSortingFilter {
+                self.viewModel.fetchGamesBySortingFilter(sortingFilter: selectedSortingFilter.filterValue())
+            }
+        }
         
     }
 }

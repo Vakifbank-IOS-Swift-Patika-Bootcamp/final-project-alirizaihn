@@ -18,6 +18,7 @@ protocol GameListViewModelProtocol {
     func getGenresName() -> [String]?
     func fetchGameByGenre(genreId: Int?)
     func getGenre(at index: Int) -> GenreModel?
+    func fetchGamesBySortingFilter(sortingFilter: String)
 }
 
 protocol GameListViewModelDelegate: AnyObject {
@@ -29,6 +30,12 @@ protocol GameListViewModelDelegate: AnyObject {
 }
 
 final class GameListViewModel : GameListViewModelProtocol {
+    func fetchGamesBySortingFilter(sortingFilter: String) {
+        self.selectedSortingFilter = sortingFilter
+        clearFilter()
+        fetchGames()
+    }
+    
     func getGenre(at index: Int) -> GenreModel? {
         self.genres[index]
     }
@@ -60,6 +67,7 @@ final class GameListViewModel : GameListViewModelProtocol {
     private var games: [GameModel] = []
     private var genres: [GenreModel] = []
     private var selectedGenreId: Int?
+    private var selectedSortingFilter: String?
     
     func getGamesCount() -> Int {
         return games.count ?? 0
@@ -71,7 +79,7 @@ final class GameListViewModel : GameListViewModelProtocol {
     
     func fetchGames() {
         self.delegate?.startFetching()
-        GameServisClient.getGameList(searchText: self.searchText, genreId: self.selectedGenreId, page: self.page) { [weak self] games, error in
+        GameServisClient.getGameList(searchText: self.searchText, genreId: self.selectedGenreId, page: self.page, ordering: self.selectedSortingFilter) { [weak self] games, error in
             guard let self = self else { return }
             self.delegate?.endingFetching()
             if let error = error {

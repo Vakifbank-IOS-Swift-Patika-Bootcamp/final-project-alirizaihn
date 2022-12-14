@@ -11,7 +11,7 @@ import Alamofire
 final class GameServisClient {
     static let BASE_URL = "https://api.rawg.io/api"
     
-    static func getGameList(searchText: String?, genreId: Int?, page: Int = 1, pageSize: Int = 15, completion: @escaping ([GameModel]?, Error?) -> Void) {
+    static func getGameList(searchText: String?, genreId: Int?, page: Int = 1, pageSize: Int = 15, ordering: String?, completion: @escaping ([GameModel]?, Error?) -> Void) {
         let urlString = BASE_URL + "/games"
         var parameters: Parameters = ["key": Constants.API_KEY, "page": page, "page_size":pageSize]
         if let searchText = searchText {
@@ -19,6 +19,9 @@ final class GameServisClient {
         }
         if let genreId = genreId {
             parameters ["genres"] = genreId
+        }
+        if let ordering = ordering {
+            parameters ["ordering"] = ordering
         }
         handleResponse(urlString: urlString, parameters: parameters, responseType: GetGamesResponseModel.self) { responseModel, error in
             completion(responseModel?.results, error)
