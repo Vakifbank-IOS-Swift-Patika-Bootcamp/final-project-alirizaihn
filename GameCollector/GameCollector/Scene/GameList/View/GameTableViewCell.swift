@@ -10,10 +10,14 @@ import AlamofireImage
 final class GameTableViewCell: UITableViewCell {
     @IBOutlet private weak var gameImage: UIImageView!
     @IBOutlet private weak var gameName: UILabel!
-
+    
+    override func prepareForReuse() {
+        gameImage.image = nil
+    }
     func configureCell( model: GameModel  ){
         gameName.text = model.name
-        guard let url = URL(string: model.backgroundImage) else { return }
+        guard let imageUrlString = model.backgroundImage, let url = URL(string: imageUrlString) else { return }
         gameImage.af.setImage(withURL: url)
+        
     }
 }

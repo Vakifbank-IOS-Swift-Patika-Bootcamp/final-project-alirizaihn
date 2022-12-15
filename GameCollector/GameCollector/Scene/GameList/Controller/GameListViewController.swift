@@ -18,20 +18,17 @@ final class GameListViewController: BaseViewController {
         }
     }
     private var viewModel: GameListViewModelProtocol = GameListViewModel()
-    let searchController = UISearchController()
-    var games: [GameModel]?
-    var filteredGames = [GameModel]()
-    var scopeButtonPressed = false
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        initSearchController()
         gameListTableView.tableFooterView = UIView()
         viewModel.delegate = self
         viewModel.fetchGames()
-        
+        viewModel.fetchGenres()
     }
+    
     func initSearchController() {
         searchController.loadViewIfNeeded()
         searchController.searchResultsUpdater = self
@@ -40,63 +37,85 @@ final class GameListViewController: BaseViewController {
         searchController.searchBar.enablesReturnKeyAutomatically = false
         searchController.searchBar.returnKeyType = UIReturnKeyType.done
         searchController.searchBar.showsScopeBar = true
-        searchController.searchBar.scopeButtonTitles = ["All", "Rect","Sqaure", "Octagon", "Circle", "Triangle"]
+        searchController.searchBar.scopeButtonTitles = viewModel.getGenresName()
         definesPresentationContext = true
         self.navigationItem.searchController = searchController
         self.navigationItem.title = "Game List"
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.up.and.down.text.horizontal"), style: UIBarButtonItem.Style.done, target: self, action: #selector(showSearch))
-        
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.up.and.down.text.horizontal"),
+            style: UIBarButtonItem.Style.done,
+            target: self,
+            action: #selector(showSearch)
+        )
     }
-    @objc func showSearch () {
-        
+    
+    @objc func showSearch() {
+        SortingView.showView() { selectedSortingFilter in
+            if let selectedSortingFilter = selectedSortingFilter {
+                self.viewModel.fetchGamesBySortingFilter(sortingFilter: selectedSortingFilter.filterValue())
+            }
+        }
     }
 }
 
-extension GameListViewController : UITableViewDelegate, UITableViewDataSource {
+extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getGamesCount()
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell,
-              let model = viewModel.getGame(at: indexPath.row) else { return UITableViewCell() }
-        print("blasda\(model)")
+            let model = viewModel.getGame(at: indexPath.row) else { return UITableViewCell() }
         cell.configureCell(model: model)
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("item selected")
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.item == viewModel.getGamesCount() - 1 {
+            viewModel.fetchMore()
+        }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameDetailViewController") as? GameDetailViewController else { return }
+        detailVC.gameId = viewModel.getGame(at: indexPath.row)?.id
+//        present(detailVC, animated: true)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
     
 }
-extension GameListViewController : UISearchResultsUpdating, UISearchBarDelegate {
-    
+
+extension GameListViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if !(searchBar.text?.isEmpty ?? true){
+            viewModel.searchGames(searchText: "")
+        }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.searchGames(searchText: String(searchText))
+        })
+    }
+
     func updateSearchResults(for searchController: UISearchController) {
-        //        let searchBar = searchController.searchBar
-        //        let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        //        let searchText = searchBar.text!
-        //
-        //        filterForSearchTextAndScopeButton(searchText: searchText, scopeButton: scopeButton)
+        let searchBar = searchController.searchBar
+        let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        let searchText = searchBar.text!
+     
     }
-    func filterForSearchTextAndScopeButton(searchText: String, scopeButton: String = "All") {
-        //        filteredGames = games?.filter {
-        //            game in
-        //            let scopeMatch = (scopeButton == "All" )
-        //            if(searchController.searchBar.text != "") {
-        //                let searchTextMatch =  game.name.contains(searchText.lowercased())
-        //                return scopeMatch && searchTextMatch
-        //            }
-        //            else {
-        //                return scopeMatch
-        //            }
-        //        } ?? []
-        //        gameListTableView.reloadData()
-    }
+  
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        //        searchController.searchBar.text = ""
+        if selectedScope != 0 {
+            let selectedGenreId = self.viewModel.getGenre(at: selectedScope-1 )?.id
+            self.viewModel.fetchGameByGenre(genreId: selectedGenreId)
+        } else {
+            self.viewModel.fetchGameByGenre(genreId: nil)
+        }
+       
         //        scopeButtonPressed = true
         //        let scopeButton = searchController.searchBar.scopeButtonTitles!
         //        [searchController.searchBar.selectedScopeButtonIndex]
@@ -109,19 +128,24 @@ extension GameListViewController : UISearchResultsUpdating, UISearchBarDelegate 
     
     
 }
+
 extension GameListViewController: GameListViewModelDelegate {
+    func genreLoaded() {
+        self.initSearchController()
+    }
+
     func startFetching() {
         self.indicator.startAnimating()
     }
-    
+
     func endingFetching() {
         self.indicator.stopAnimating()
     }
-    
+
     func gameLoaded() {
        gameListTableView.reloadData()
     }
-    
+
     func onError(message: String) {
         self.showErrorAlert(message: message) {
             self.navigationController?.popViewController(animated: true)
