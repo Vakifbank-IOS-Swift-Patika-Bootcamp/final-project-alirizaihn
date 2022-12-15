@@ -11,6 +11,13 @@ import Alamofire
 final class GameServisClient {
     static let BASE_URL = "https://api.rawg.io/api"
     
+    static func fetchGame(id: Int, completion: @escaping (GameModel?, Error?) -> Void) {
+        let urlString = BASE_URL + "/games/\(id)"
+        var parameters: Parameters = ["key": Constants.API_KEY]
+        handleResponse(urlString: urlString, parameters: parameters, responseType: GameModel.self) { responseModel, error in
+            completion(responseModel, error)
+        }
+    }
     static func getGameList(searchText: String?, genreId: Int?, page: Int = 1, pageSize: Int = 15, ordering: String?, completion: @escaping ([GameModel]?, Error?) -> Void) {
         let urlString = BASE_URL + "/games"
         var parameters: Parameters = ["key": Constants.API_KEY, "page": page, "page_size":pageSize]
@@ -38,7 +45,6 @@ final class GameServisClient {
  
     
     static private func handleResponse<T: Decodable>(urlString: String, parameters:Parameters?, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) {
-        print("bakalı\(urlString) \(parameters)")
         AF.request(urlString,parameters: parameters).response { response in
             guard let data = response.value else {
                 DispatchQueue.main.async {
@@ -54,7 +60,6 @@ final class GameServisClient {
                 }
             }
             catch {
-                print("baksdawa\(error)")
                 DispatchQueue.main.async {
                     completion(nil, error)
                 }

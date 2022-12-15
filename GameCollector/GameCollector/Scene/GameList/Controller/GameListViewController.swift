@@ -78,7 +78,10 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("item selected")
+        guard let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameDetailViewController") as? GameDetailViewController else { return }
+        detailVC.gameId = viewModel.getGame(at: indexPath.row)?.id
+//        present(detailVC, animated: true)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }
@@ -103,11 +106,9 @@ extension GameListViewController: UISearchResultsUpdating, UISearchBarDelegate {
         let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         let searchText = searchBar.text!
      
-        //        filterForSearchTextAndScopeButton(searchText: searchText, scopeButton: scopeButton)
     }
   
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        print("clasda\(selectedScope)")
         if selectedScope != 0 {
             let selectedGenreId = self.viewModel.getGenre(at: selectedScope-1 )?.id
             self.viewModel.fetchGameByGenre(genreId: selectedGenreId)
