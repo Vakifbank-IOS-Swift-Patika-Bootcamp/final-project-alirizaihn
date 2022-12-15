@@ -17,7 +17,7 @@ final class GameTableViewCell: UITableViewCell {
     func configureCell( model: GameModel  ){
         gameName.text = model.name
         guard let imageUrlString = model.backgroundImage, let url = URL(string: imageUrlString) else { return }
-        gameImage.af.setImage(withURL: url)
+        gameImage.af.setImage(withURL: url, placeholderImage: UIImage(named: "placeholderImg.jpeg"))
         
     }
 }
