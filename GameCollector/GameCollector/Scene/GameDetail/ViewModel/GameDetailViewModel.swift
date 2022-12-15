@@ -60,7 +60,6 @@ final class GameDetailViewModel: GameDetailViewModelProtocol {
     
     func editFavorite() {
         let favoriteGames = CoreDataManager.shared.getGamesFromFavorites()
-        print("nazlı gülüm,\(favoriteGames[0].id)")
         if let game = self.game {
             if isGameInFavorites() {
                 CoreDataManager.shared.removeGameFromFavorites(noteId: game.id!)
