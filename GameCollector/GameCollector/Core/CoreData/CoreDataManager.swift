@@ -19,6 +19,7 @@ final class CoreDataManager {
         let entity = NSEntityDescription.entity(forEntityName: "Game", in: managedContext)!
         let game = NSManagedObject(entity: entity, insertInto: managedContext)
         game.setValue(newGame.name, forKeyPath: "name")
+        game.setValue(newGame.backgroundImage, forKeyPath: "backgroundImage")
         game.setValue(newGame.id, forKeyPath: "id")
         do {
             try managedContext.save()
@@ -27,9 +28,9 @@ final class CoreDataManager {
         }
     }
     
-    func removeGameFromFavorites(noteId: Int) {
+    func removeGameFromFavorites(gameId: Int) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Game")
-        fetchRequest.predicate = NSPredicate(format: "%K = %d", "id", noteId)
+        fetchRequest.predicate = NSPredicate(format: "%K = %d", "id", gameId)
         if let notes = try? managedContext.fetch(fetchRequest) {
             for note in notes {
                 managedContext.delete(note)
@@ -59,6 +60,7 @@ final class CoreDataManager {
             let games = try managedContext.fetch(fetchRequest)
             let game = games[0]
             game.setValue(gameModel.name, forKeyPath: "name")
+            game.setValue(gameModel.backgroundImage, forKeyPath: "backgroundImage")
             game.setValue(gameModel.id, forKeyPath: "id")
             try managedContext.save()
         } catch let error {

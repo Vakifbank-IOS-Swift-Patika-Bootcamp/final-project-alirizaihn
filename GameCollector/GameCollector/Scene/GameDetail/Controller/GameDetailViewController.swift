@@ -32,6 +32,10 @@ final class GameDetailViewController: BaseViewController {
 }
 
 extension GameDetailViewController: GameDetailViewModelDelegate {
+    func editedFavorites() {
+        print("1")
+    }
+    
     func startFetching() {
         self.indicator.startAnimating()
     }

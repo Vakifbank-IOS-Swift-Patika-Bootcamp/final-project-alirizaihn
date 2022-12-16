@@ -59,15 +59,18 @@ final class GameDetailViewModel: GameDetailViewModelProtocol {
     }
     
     func editFavorite() {
-        let favoriteGames = CoreDataManager.shared.getGamesFromFavorites()
         if let game = self.game {
             if isGameInFavorites() {
-                CoreDataManager.shared.removeGameFromFavorites(noteId: game.id!)
+                CoreDataManager.shared.removeGameFromFavorites(gameId: game.id!)
+                NotificationCenter.default.post(name: NSNotification.Name("favoritesIsUpdatedNotification"), object: nil)
             } else {
                 CoreDataManager.shared.addGameToFavorites(newGame: game)
+                NotificationCenter.default.post(name: NSNotification.Name("favoritesIsUpdatedNotification"), object: nil)
             }
+            
         }
     }
+    
     func isGameInFavorites () -> Bool {
         let favoriteGames = CoreDataManager.shared.getGamesFromFavorites()
         if let game = self.game {

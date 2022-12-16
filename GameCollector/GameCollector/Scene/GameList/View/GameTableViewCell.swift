@@ -14,10 +14,14 @@ final class GameTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         gameImage.image = nil
     }
-    func configureCell( model: GameModel  ){
+    func configureCell(model: GameModel  ){
+        gameName.text = model.name ?? "a"
+        guard let imageUrlString = model.backgroundImage, let url = URL(string: imageUrlString) else { return }
+        gameImage.af.setImage(withURL: url, placeholderImage: UIImage(named: "placeholderImg.jpeg"))
+    }
+    func configureCellForFavorite(model: Game) {
         gameName.text = model.name
         guard let imageUrlString = model.backgroundImage, let url = URL(string: imageUrlString) else { return }
         gameImage.af.setImage(withURL: url, placeholderImage: UIImage(named: "placeholderImg.jpeg"))
-        
     }
 }
