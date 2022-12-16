@@ -20,7 +20,7 @@ final class GameListViewController: BaseViewController {
     private var viewModel: GameListViewModelProtocol = GameListViewModel()
     private let searchController = UISearchController(searchResultsController: nil)
     private var timer = Timer()
-    
+    private var isLoading = false // A flag to track whether we are currently loading more data
     override func viewDidLoad() {
         super.viewDidLoad()
         gameListTableView.tableFooterView = UIView()
@@ -78,7 +78,8 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.item == viewModel.getGamesCount() - 1 {
+        if viewModel.getGamesCount() > 5 && indexPath.row >= viewModel.getGamesCount() - 1 && !isLoading {
+            isLoading = true
             viewModel.fetchMore()
         }
     }
@@ -150,12 +151,14 @@ extension GameListViewController: GameListViewModelDelegate {
 
     func gameLoaded() {
        gameListTableView.reloadData()
+       isLoading = false
     }
 
     func onError(message: String) {
         self.showErrorAlert(message: message) {
             self.navigationController?.popViewController(animated: true)
         }
+        gameListTableView.reloadData()
     }
     
     

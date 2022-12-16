@@ -20,7 +20,7 @@ final class CoreDataManager {
         let game = NSManagedObject(entity: entity, insertInto: managedContext)
         game.setValue(newGame.name, forKeyPath: "name")
         game.setValue(newGame.backgroundImage, forKeyPath: "backgroundImage")
-        game.setValue(newGame.id, forKeyPath: "id")
+        game.setValue(newGame.id, forKey: "id")
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -77,7 +77,7 @@ final class CoreDataManager {
         }
         return []
     }
-    func saveNote(newNote: UserNoteModel) -> Note? {
+    func saveNote(newNote: UserNoteModel) {
         let entity = NSEntityDescription.entity(forEntityName: "Note", in: managedContext)!
         let note = NSManagedObject(entity: entity, insertInto: managedContext)
         note.setValue(newNote.gameName, forKeyPath: "gameName")
@@ -86,12 +86,9 @@ final class CoreDataManager {
         note.setValue(newNote.id, forKey: "id")
         do {
             try managedContext.save()
-            return note as? Note
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
-        
-        return nil
     }
     
     func removeNote(noteId: UUID) {

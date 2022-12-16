@@ -98,6 +98,7 @@ final class GameListViewModel: GameListViewModelProtocol {
     func fetchGameByGenre(genreId: Int?) {
         selectedGenreId = genreId
         clearFilter()
+        print("bakacapız5")
         fetchGames()
     }
     
@@ -109,6 +110,7 @@ final class GameListViewModel: GameListViewModelProtocol {
         selectedSortingFilter = sortingFilter
         clearFilter()
         fetchGames()
+        print("bakacapız4")
     }
     
     private func clearFilter() {
@@ -119,11 +121,13 @@ final class GameListViewModel: GameListViewModelProtocol {
     func fetchMore() {
         page += 1
         fetchGames()
+        print("bakacapız3")
     }
     
     func searchGames(searchText: String?) {
         self.searchText = searchText
         clearFilter()
         fetchGames()
+        print("bakacapız2")
     }
 }
