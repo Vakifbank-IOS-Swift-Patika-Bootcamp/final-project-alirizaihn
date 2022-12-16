@@ -6,4 +6,10 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="uniqId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
+    <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gameName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="userNote" optional="YES" attributeType="String"/>
+    </entity>
 </model>

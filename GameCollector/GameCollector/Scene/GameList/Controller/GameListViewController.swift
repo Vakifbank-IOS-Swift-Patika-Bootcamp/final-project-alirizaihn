@@ -27,6 +27,7 @@ final class GameListViewController: BaseViewController {
         viewModel.delegate = self
         viewModel.fetchGames()
         viewModel.fetchGenres()
+//        createNotes()
     }
     
     func initSearchController() {
@@ -49,7 +50,12 @@ final class GameListViewController: BaseViewController {
             action: #selector(showSearch)
         )
     }
-    
+    func createNotes () {
+        for i in 1...10 {
+            var newNotes = UserNoteModel(gameName: String(i), userNote: "alsjdada\(i)", date: Date(), id: UUID())
+            CoreDataManager.shared.saveNote(newNote: newNotes)
+        }
+    }
     @objc func showSearch() {
         SortingView.showView() { selectedSortingFilter in
             if let selectedSortingFilter = selectedSortingFilter {

@@ -77,4 +77,73 @@ final class CoreDataManager {
         }
         return []
     }
+    func saveNote(newNote: UserNoteModel) -> Note? {
+        let entity = NSEntityDescription.entity(forEntityName: "Note", in: managedContext)!
+        let note = NSManagedObject(entity: entity, insertInto: managedContext)
+        note.setValue(newNote.gameName, forKeyPath: "gameName")
+        note.setValue(newNote.date, forKeyPath: "date")
+        note.setValue(newNote.userNote, forKeyPath: "userNote")
+        note.setValue(newNote.id, forKey: "id")
+        do {
+            try managedContext.save()
+            return note as? Note
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
+        return nil
+    }
+    
+    func removeNote(noteId: UUID) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", noteId as CVarArg)
+        if let notes = try? managedContext.fetch(fetchRequest) {
+            for note in notes {
+                managedContext.delete(note)
+            }
+            do {
+                try managedContext.save()
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    func removeAll() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try managedContext.execute(batchDeleteRequest)
+
+        } catch {
+            // Error Handling
+        }
+    }
+    func updateNote(noteModel: UserNoteModel) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", noteModel.id as CVarArg)
+        
+        do {
+            let notes = try managedContext.fetch(fetchRequest)
+            let note = notes[0]
+            note.setValue(noteModel.gameName, forKeyPath: "gameName")
+            note.setValue(noteModel.date, forKeyPath: "date")
+            note.setValue(noteModel.userNote, forKeyPath: "userNote")
+            note.setValue(noteModel.id, forKey: "id")
+            try managedContext.save()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    func getNotes() -> [Note] {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Note")
+        do {
+            let notes = try managedContext.fetch(fetchRequest)
+            return notes as! [Note]
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    
 }
