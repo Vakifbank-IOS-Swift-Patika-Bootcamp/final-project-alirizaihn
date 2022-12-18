@@ -47,7 +47,11 @@ final class GameListViewModel: GameListViewModelProtocol {
     }
     
     func getGame(at index: Int) -> GameModel? {
-        games?[index]
+        if games?.count ?? 0 > 0 {
+          return games?[index]
+        }
+        return nil
+      
     }
     
     // Fetch a list of games from the server.
@@ -98,7 +102,6 @@ final class GameListViewModel: GameListViewModelProtocol {
     func fetchGameByGenre(genreId: Int?) {
         selectedGenreId = genreId
         clearFilter()
-        print("bakacapız5")
         fetchGames()
     }
     
@@ -110,7 +113,6 @@ final class GameListViewModel: GameListViewModelProtocol {
         selectedSortingFilter = sortingFilter
         clearFilter()
         fetchGames()
-        print("bakacapız4")
     }
     
     private func clearFilter() {
@@ -121,13 +123,11 @@ final class GameListViewModel: GameListViewModelProtocol {
     func fetchMore() {
         page += 1
         fetchGames()
-        print("bakacapız3")
     }
     
     func searchGames(searchText: String?) {
         self.searchText = searchText
         clearFilter()
         fetchGames()
-        print("bakacapız2")
     }
 }

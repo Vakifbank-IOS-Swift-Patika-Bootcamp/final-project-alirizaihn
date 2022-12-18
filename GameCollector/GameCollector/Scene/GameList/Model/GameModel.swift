@@ -11,6 +11,7 @@ struct GameModel: Codable {
     let id: Int?
     let slug, name, released: String?
     let backgroundImage: String?
+    let description: String?
     let rating: Double?
     let ratingTop, ratingsCount, metacritic, playtime: Int?
     let suggestionsCount: Int?
@@ -24,6 +25,7 @@ struct GameModel: Codable {
         case id, slug, name, released
         case backgroundImage = "background_image"
         case rating
+        case description
         case ratingTop = "rating_top"
         case ratingsCount = "ratings_count"
         case metacritic, playtime

@@ -13,6 +13,7 @@
 		56139A5C294CA88800461DA9 /* UserNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56139A5B294CA88800461DA9 /* UserNoteModel.swift */; };
 		56139A5E294CC72A00461DA9 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56139A5D294CC72A00461DA9 /* CreateNoteViewController.swift */; };
 		56139A60294CD05100461DA9 /* CreateNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56139A5F294CD05100461DA9 /* CreateNoteViewModel.swift */; };
+		56139A62294DA8FD00461DA9 /* SliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56139A61294DA8FD00461DA9 /* SliderCollectionViewCell.swift */; };
 		564CD0AE294B3C4F0074DC6F /* GameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564CD0AD294B3C4F0074DC6F /* GameDetailViewController.swift */; };
 		564CD0B0294B3D250074DC6F /* GameDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564CD0AF294B3D250074DC6F /* GameDetailViewModel.swift */; };
 		564CD0B2294B70120074DC6F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564CD0B1294B70120074DC6F /* CoreDataManager.swift */; };
@@ -71,6 +72,7 @@
 		56139A5B294CA88800461DA9 /* UserNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNoteModel.swift; sourceTree = "<group>"; };
 		56139A5D294CC72A00461DA9 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		56139A5F294CD05100461DA9 /* CreateNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewModel.swift; sourceTree = "<group>"; };
+		56139A61294DA8FD00461DA9 /* SliderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCollectionViewCell.swift; sourceTree = "<group>"; };
 		564CD0AD294B3C4F0074DC6F /* GameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewController.swift; sourceTree = "<group>"; };
 		564CD0AF294B3D250074DC6F /* GameDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewModel.swift; sourceTree = "<group>"; };
 		564CD0B1294B70120074DC6F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 		566A7BE92944C3E200B15729 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				56139A61294DA8FD00461DA9 /* SliderCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				56A154D5294114550013DAE0 /* GameListViewController.swift in Sources */,
 				56A154D1294114550013DAE0 /* AppDelegate.swift in Sources */,
 				56A154D3294114550013DAE0 /* SceneDelegate.swift in Sources */,
+				56139A62294DA8FD00461DA9 /* SliderCollectionViewCell.swift in Sources */,
 				564CD0B2294B70120074DC6F /* CoreDataManager.swift in Sources */,
 				56A154DB294114550013DAE0 /* GameCollector.xcdatamodeld in Sources */,
 				566A7BFE294605F600B15729 /* GenreModel.swift in Sources */,
