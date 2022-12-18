@@ -47,7 +47,11 @@ final class GameListViewModel: GameListViewModelProtocol {
     }
     
     func getGame(at index: Int) -> GameModel? {
-        games?[index]
+        if games?.count ?? 0 > 0 {
+          return games?[index]
+        }
+        return nil
+      
     }
     
     // Fetch a list of games from the server.

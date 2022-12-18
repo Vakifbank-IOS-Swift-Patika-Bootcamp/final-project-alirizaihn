@@ -12,7 +12,6 @@ import SwiftAlertView
 class BaseViewController: UIViewController {
     
     let indicator = MaterialActivityIndicatorView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupActivityIndicatorView()

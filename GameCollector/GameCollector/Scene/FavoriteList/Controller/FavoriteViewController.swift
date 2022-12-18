@@ -23,7 +23,6 @@ final class FavoriteViewController: BaseViewController {
     }
     @objc func favoriteIsUpdated() {
         favoritesTableView.reloadData()
-        print("viewModel.getFavoritesCount()\(viewModel.getFavoritesCount())")
     }
 }
 
