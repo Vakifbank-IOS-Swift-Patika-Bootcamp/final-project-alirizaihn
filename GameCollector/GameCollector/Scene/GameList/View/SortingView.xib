@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SortingView" customModule="GameCollector" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="tt1-TZ-DkK">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9VH-Xo-TDw">
+                            <rect key="frame" x="0.0" y="667" width="375" height="202"/>
+                            <subviews>
+                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vim-0r-50i">
+                                    <rect key="frame" x="0.0" y="40" width="375" height="162"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="162" id="Buu-j9-UB8"/>
+                                    </constraints>
+                                </pickerView>
+                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MPE-Xq-0zm">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="K8H-C8-XhU"/>
+                                    </constraints>
+                                    <items>
+                                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="sZt-CH-vur"/>
+                                        <barButtonItem title="Vazgeç" id="ARb-wD-D8M">
+                                            <connections>
+                                                <action selector="closeRatingFilter:" destination="iN0-l3-epB" id="53H-jZ-wBR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="1z7-nN-zW9"/>
+                                        <barButtonItem style="plain" id="mEH-Kr-Lu2">
+                                            <view key="customView" contentMode="scaleToFill" id="eYg-QZ-4fA">
+                                                <rect key="frame" x="115.66666666666669" y="5.6666666666666679" width="144" height="33"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sırala" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dh2-Jz-MyY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="144" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="AccentColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Dh2-Jz-MyY" firstAttribute="top" secondItem="eYg-QZ-4fA" secondAttribute="top" id="0rx-mY-Ft9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Dh2-Jz-MyY" secondAttribute="trailing" id="ctv-cp-etw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Dh2-Jz-MyY" secondAttribute="bottom" id="fy1-td-OK4"/>
+                                                    <constraint firstItem="Dh2-Jz-MyY" firstAttribute="leading" secondItem="eYg-QZ-4fA" secondAttribute="leading" id="o2d-kZ-o4h"/>
+                                                </constraints>
+                                            </view>
+                                        </barButtonItem>
+                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="uIc-Ai-WUQ"/>
+                                        <barButtonItem title="Seç" id="uWC-os-ees">
+                                            <color key="tintColor" systemColor="tintColor"/>
+                                            <connections>
+                                                <action selector="selectRatingFilter:" destination="iN0-l3-epB" id="hU9-gi-vkv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="HLJ-rw-iri"/>
+                                    </items>
+                                </toolbar>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="202" id="Nsb-dU-dyb"/>
+                                <constraint firstAttribute="bottom" secondItem="vim-0r-50i" secondAttribute="bottom" id="Ppn-Td-lzf"/>
+                                <constraint firstItem="MPE-Xq-0zm" firstAttribute="leading" secondItem="9VH-Xo-TDw" secondAttribute="leading" id="YJJ-4P-bVO"/>
+                                <constraint firstAttribute="trailing" secondItem="MPE-Xq-0zm" secondAttribute="trailing" id="cyY-JE-0Se"/>
+                                <constraint firstItem="vim-0r-50i" firstAttribute="leading" secondItem="9VH-Xo-TDw" secondAttribute="leading" id="pbA-0H-owQ"/>
+                                <constraint firstItem="MPE-Xq-0zm" firstAttribute="top" secondItem="9VH-Xo-TDw" secondAttribute="top" id="qYH-EB-4wM"/>
+                                <constraint firstAttribute="trailing" secondItem="vim-0r-50i" secondAttribute="trailing" id="rmf-9t-cfq"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="9VH-Xo-TDw" firstAttribute="leading" secondItem="tt1-TZ-DkK" secondAttribute="leading" id="EWB-IT-37u"/>
+                        <constraint firstAttribute="trailing" secondItem="9VH-Xo-TDw" secondAttribute="trailing" id="FN5-uf-nGy"/>
+                        <constraint firstItem="9VH-Xo-TDw" firstAttribute="top" secondItem="tt1-TZ-DkK" secondAttribute="bottom" id="tId-bF-kip"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="tt1-TZ-DkK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Tmo-Db-RIl"/>
+                <constraint firstAttribute="trailing" secondItem="tt1-TZ-DkK" secondAttribute="trailing" id="cIh-aU-07s"/>
+                <constraint firstItem="tt1-TZ-DkK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xW1-7p-iH6"/>
+                <constraint firstAttribute="bottom" secondItem="tt1-TZ-DkK" secondAttribute="bottom" id="xjK-U5-FYJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="sortingPickerView" destination="vim-0r-50i" id="B1X-6g-993"/>
+                <outlet property="topCons" destination="tId-bF-kip" id="y8J-Vf-GxE"/>
+            </connections>
+            <point key="canvasLocation" x="-2" y="-18"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
