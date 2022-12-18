@@ -20,6 +20,9 @@ final class CoreDataManager {
         let game = NSManagedObject(entity: entity, insertInto: managedContext)
         game.setValue(newGame.name, forKeyPath: "name")
         game.setValue(newGame.backgroundImage, forKeyPath: "backgroundImage")
+        game.setValue(newGame.released, forKeyPath: "released")
+        game.setValue(newGame.rating, forKeyPath: "rating")
+        game.setValue(newGame.ratingsCount, forKeyPath: "ratingsCount")
         game.setValue(newGame.id, forKey: "id")
         do {
             try managedContext.save()
@@ -61,6 +64,9 @@ final class CoreDataManager {
             let game = games[0]
             game.setValue(gameModel.name, forKeyPath: "name")
             game.setValue(gameModel.backgroundImage, forKeyPath: "backgroundImage")
+            game.setValue(gameModel.released, forKeyPath: "released")
+            game.setValue(gameModel.rating, forKeyPath: "rating")
+            game.setValue(gameModel.ratingsCount, forKeyPath: "ratingsCount")
             game.setValue(gameModel.id, forKeyPath: "id")
             try managedContext.save()
         } catch let error {
