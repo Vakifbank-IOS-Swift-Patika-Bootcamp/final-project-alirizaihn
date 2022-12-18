@@ -161,9 +161,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypv-CQ-3s3">
-                                <rect key="frame" x="159" y="485" width="75" height="35"/>
+                                <rect key="frame" x="131" y="485" width="128" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add"/>
                                 <connections>
                                     <action selector="saveButtonPressed:" destination="Wna-UF-2mj" eventType="touchUpInside" id="dpx-K6-aBt"/>
                                 </connections>
@@ -175,31 +175,31 @@
                             <constraint firstItem="Knc-Ck-s7a" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="16" id="1cb-g1-fR8"/>
                             <constraint firstItem="elP-PZ-ev3" firstAttribute="top" secondItem="X2V-bE-mEs" secondAttribute="top" constant="15" id="2MX-oJ-MJk"/>
                             <constraint firstItem="sjs-oV-8Pi" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="16" id="3JQ-mk-NWd"/>
+                            <constraint firstItem="Ypv-CQ-3s3" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="131" id="597-ig-L2J"/>
                             <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="sjs-oV-8Pi" secondAttribute="trailing" constant="16" id="7tK-Ff-l1K"/>
-                            <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="Ypv-CQ-3s3" secondAttribute="trailing" constant="159" id="Afj-BT-Fyb"/>
                             <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="KeB-Gw-fwL" secondAttribute="trailing" constant="227" id="Ar7-Ye-U4Z"/>
-                            <constraint firstItem="Ypv-CQ-3s3" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="159" id="CVV-VN-OD7"/>
-                            <constraint firstItem="Ypv-CQ-3s3" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="159" id="FLT-OH-FUV"/>
+                            <constraint firstItem="X2V-bE-mEs" firstAttribute="bottom" secondItem="Ypv-CQ-3s3" secondAttribute="bottom" constant="298" id="Hlo-3T-w56"/>
+                            <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="Ypv-CQ-3s3" secondAttribute="trailing" constant="134" id="KVb-zr-0Gx"/>
                             <constraint firstItem="KeB-Gw-fwL" firstAttribute="top" secondItem="Knc-Ck-s7a" secondAttribute="bottom" constant="20" id="Kry-fF-0mV"/>
                             <constraint firstItem="5oR-l0-MeX" firstAttribute="top" secondItem="elP-PZ-ev3" secondAttribute="bottom" constant="60" id="MaI-hX-eNb"/>
                             <constraint firstItem="Knc-Ck-s7a" firstAttribute="top" secondItem="5oR-l0-MeX" secondAttribute="bottom" constant="8" symbolic="YES" id="Sx8-qN-CaI"/>
-                            <constraint firstItem="X2V-bE-mEs" firstAttribute="bottom" secondItem="Ypv-CQ-3s3" secondAttribute="bottom" constant="298" id="URl-of-T4y"/>
                             <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="5oR-l0-MeX" secondAttribute="trailing" constant="265" id="WYn-UE-tLZ"/>
+                            <constraint firstItem="Ypv-CQ-3s3" firstAttribute="top" secondItem="sjs-oV-8Pi" secondAttribute="bottom" constant="20" id="X6u-4b-943"/>
                             <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="elP-PZ-ev3" secondAttribute="trailing" constant="131" id="dWe-0s-bpg"/>
-                            <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="Ypv-CQ-3s3" secondAttribute="trailing" constant="159" id="eQE-Tq-q7r"/>
                             <constraint firstItem="X2V-bE-mEs" firstAttribute="trailing" secondItem="Knc-Ck-s7a" secondAttribute="trailing" constant="16" id="iMh-rk-Yrz"/>
                             <constraint firstItem="sjs-oV-8Pi" firstAttribute="top" secondItem="KeB-Gw-fwL" secondAttribute="bottom" constant="8" symbolic="YES" id="m8F-I6-XSh"/>
                             <constraint firstItem="5oR-l0-MeX" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="16" id="qIU-Yw-p0h"/>
                             <constraint firstItem="KeB-Gw-fwL" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="16" id="r4I-Vp-cnX"/>
-                            <constraint firstItem="Ypv-CQ-3s3" firstAttribute="top" secondItem="sjs-oV-8Pi" secondAttribute="bottom" constant="20" id="uAR-kr-iW9"/>
                             <constraint firstItem="elP-PZ-ev3" firstAttribute="leading" secondItem="X2V-bE-mEs" secondAttribute="leading" constant="131" id="uXx-qR-ZAQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fIk-R7-6eb"/>
                     <connections>
                         <outlet property="bgView" destination="Hj4-df-Ila" id="LXM-S2-lP0"/>
+                        <outlet property="createButton" destination="Ypv-CQ-3s3" id="dYw-E0-QGb"/>
                         <outlet property="gameNameLabel" destination="Knc-Ck-s7a" id="7gN-ky-V3D"/>
                         <outlet property="noteTextView" destination="sjs-oV-8Pi" id="Nzf-9Q-Tvb"/>
+                        <outlet property="titleLabel" destination="elP-PZ-ev3" id="D37-Hr-lpf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbc-t4-b23" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

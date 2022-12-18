@@ -18,8 +18,9 @@ final class CreateNoteViewController: BaseViewController {
     @IBOutlet private var bgView: UIView!
     var note: Note?
     private var userNote = UserNoteModel(gameName: "", userNote: "", date: Date(), id: UUID())
+    @IBOutlet private weak var titleLabel: UILabel!
     private var viewModel: CreateNoteViewProtocol = CreateNoteViewModel()
-    
+    @IBOutlet private weak var createButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
@@ -32,6 +33,8 @@ final class CreateNoteViewController: BaseViewController {
         if note != nil {
             gameNameLabel.text = note?.gameName
             noteTextView.text = note?.userNote
+            titleLabel.text = "Update Note"
+            createButton.setTitle("Update", for: .normal)
         }
     }
     
