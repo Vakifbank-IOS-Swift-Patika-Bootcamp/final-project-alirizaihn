@@ -1,59 +1,129 @@
-# final-project
+# Game Collector
 
-Vakıfbank IOS Swift Bootcamp Bitirme Projesi
+### Açıklama
 
-Genel Detaylar:
-3 ana ekrandan oluşan public API tabanlı bir uygulaması yapılması beklenmektedir.(API
-sonradan kararlaştırılacaktır.)
-Aşağıda yazılmış olan tüm maddeler ideal uygulamayı tarif etmekle beraber; herkes
-başardığı özelliklere göre değerlendirilecektir.
-Yapılmış maddelerin başarılı uygulanmış olması tüm maddeleri tamamlamaktan daha
-önemlidir.
-Git Kullanımı:
-- Uygulama github.com sayfasına public repo olarak yüklenmelidir.
-- Git commitleri atomic olmalı ve genel commit mesajları kurallarına dikkat
-edilmelidir. - Commit mesajları atılırken branch yapısına dikkat edilmelidir.
-(Develop, Feature vb. branch’ler oluşturulmalıdır.)
-1. Ekran: (Liste Ekranı)
-- MVVM pattern’i ile yazılmalıdır.
-- Item’lar arasında arama yapılabilmelidir.
-- Item’ları sıralama butonu ile sıralanabilmelidir.
-- Sadece item’lar güncellendiğinde görünüm güncellenmelidir. (Ekrana her
-girişte güncelleme olmamalı)
-2. Ekran: (Detay Ekranı)
-- MVVM pattern’i ile yazılmalıdır.
-- Item’a basıldığında ilgili detaya yönlenmelidir.(Alanlar belirtilecektir.)
-- Edit işlemleri için aynı ekran kullanılacaktır.
-- Düzenlemede tüm alanlar eklenmemişse item kaydedilmemelidir.
-3. Ekran: (Yeni Giriş Ekranı)
-- MVVM pattern’i ile yazılmalıdır.
-- Ekran present şekilde açılmalıdır.
-- Ekleme tüm alanlar eklenmemişse item kaydedilmemelidir.
-Uygulama gereklilikleri:
-- SPM veya Cocoapods kullanılmalıdır.
-- Uygulamada hata mesajları ve bekleme esnasında activity indicator
+Game Collector güncel oyunların, bu oyunlar ile ilgili yayınlanma tarihlerinin, ratinglerinin ve oyunlar hakkındaki kısa bilgilerin bulunduğu bir uygulamadır. Bu uygulamada aynı zamanda oyunları favorilerinize ekleyebilir ve oyunlar ile ilgili notlar oluşturabilirsiniz.
 
-kullanılmalıdır.. - İşlemler CoreData ile yapılmalıdır.
-- CoreData’ya bir CoreDataManager üzerinden erişilmelidir.
-- Local push entegrasyonu sağlanmalıdır.
-- Notification yönetimi bir localNotificationManager aracılığıyla
-yapılmalıdır. - Localization sağlanmalıdır.
-- ViewModel localNotificationManager’a notificationManager protokolü üzerinden
-erişmelidir.
-- Uygulamanın unit test yaklaşımı ve coverage yüzdesi değerlendirme kriterleri
-arasındadır.
-- UI ve animasyon tamamen tercihe bağlı olup farklı cihaz görünümleri
-gözetilmelidir.
+### Kullanılan Kütüphaneler
+<li>pod 'AlamofireImage', '~> 4.1'</li>
+<li>pod 'Alamofire'</li>
+<li>pod 'MaterialActivityIndicator'</li>
+<li>pod 'SwiftAlertView', '~> 2.2.1'</li>
 
-1- API - https://rawg.io/apidocs - Dokümantasyon Chrome ile açılmalıdır.
-2- Git reposu public gözüküyor ancak ödevler nasıl yükleniyorsa aynı sistem kullanılacaktır.
-3- ReadMe dosyası repoda olmalıdır.
-4- Liste ekranı için istenilen filtre kullanılabilir(2022 de çıkan oyunlar, platforma özel
-oyunlar veya popüler oyunlar olabilir.)
-5- Detay ekranında Fotoğraf ve en az 4 bilgi olacak.
-6- Listeden detaya gidildiğinde favorilere ekleme olacak başka bir editleme olmayacak.(2.
-Ekrandaki editleme maddesi)
-7- Favorilerin listelendiği bir ekran olacak.
-8- Liste şeklinde Notlar ekranı olacak. Oyunlara ait not ekleyebileceğim ve mevcut notları
-düzenleyebileceğim.(Dokümandaki 3. Ekran Yeni giriş ekranı bu kısımda olacak)
-9- Hatalar yakalanmalı ve alert şeklinde gösterilmelidir.
+### XCODE Version
+<li>XCode Version 14.1</li>
+
+### Swift Version
+<li>Swift 5 </li>
+
+### API
+<li>https://api.rawg.io/docs</li>
+<li>Belirtilen apiyi kullanabilmek için bir key' e ihtiyaç duyulmaktadır.</li>
+
+
+### Görseller
+
+  #### Game List
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1165.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1167.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+<ul>
+<li>Game List ekranında https://api.rawg.io/docs/  tarafından sağlanan veriler ile güncel oyunlar listelenir. </li>
+<li>Oyunlar, oyun isimleri ile search kullanılarak bulunabilir.</li>
+<li>Oyunlar tümü veya türlerine göre (aksiyon, macera vb.) filtrelenebilir.</li>
+</ul>
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1168.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+<li>Oyunlar alfabetik sıralamaya, puanlarına ve yayınlanma tarihlerine göre sıralanabilir.</li>
+<li>Oyunların search kullanılarak bulunması, sıralanması ve filtrelenmesi servis istekleri ile yapılmıştır.</li>
+<li>Oyunlar seçildiğinde oyuna ait detay sayfasına ulaşılmaktadır</li>
+
+#### Game Detail
+
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1166.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+    <li>Her bir oyunun detay sayfasında oyun görseli, rating bilgileri, oyunun yayınlanma tarihi ve oyun hakkında bilgiler bulunur. </li>
+    <li>Detay sayfasında bulunan görselin altında favorilere seçmek için kullanılan kalp sembolü bulunmaktadır. </li>
+  <li>Buton işaretlendiğinde ilgili oyun ‘’Favorites’’ ekranına kaydedilir.</li>
+
+#### Favorites
+
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1169.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1177.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+    <li>Oyunların detay ekranlarında favorilere ekleme yapıldıktan sonra favoriler sayfasına bu oyunlar kaydedilir ve burada listelenir.</li>
+    <li>Favorilere alınan oyunlar sola kaydırılarak ‘’Delete’’ seçeneği ile favorilerden çıkarılabilir. </li>
+  <li>Favoriler sayfasında da oyun seçildiğinde detay ekranına ulaşılabilir.</li>
+
+
+#### Notes
+
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1170.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1171.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+    <li>Oyunların detay ekranlarında favorilere ekleme yapıldıktan sonra favoriler sayfasına bu oyunlar kaydedilir ve burada listelenir.</li>
+    <li>Favorilere alınan oyunlar sola kaydırılarak ‘’Delete’’ seçeneği ile favorilerden çıkarılabilir. </li>
+  <li>Favoriler sayfasında da oyun seçildiğinde detay ekranına ulaşılabilir.</li>
+
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1172.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1173.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+<li>Not oluşturma ekranında Game Name ve Note About Game alanları zorunlu alan olarak tasarlanmıştır.</li> 
+<li>Bu başlıklardan herhangi birine ait bilgilerin doldurulmaması durumunda ekranda ‘’Error’’ uyarısı alınır.</li>
+
+<div align="center">
+<table>
+<tr>
+<td><img src="images/IMG_1175.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1176.PNG" alt="drawing" width="275"/></td>  
+<td><img src="images/IMG_1179.PNG" alt="drawing" width="275"/></td>  
+</td>  
+</tr>
+</table>
+</div>
+<li>Notlar kaydedildiktan sonra ekranda listelenmektedir. </li>
+<li>Listede oyun adı, notun kaydedildiği tarih ve yazılan not görüntülenmektedir.</li>
+<li>Aynı not içerisinde bilgiler değiştirilmek istendiğinde ilk kaydetme ekranında bulunan ‘’Add’ botunu ‘’Update’’ olarak ekranda değişmektedir. Bu buton ile kaydedilen notta değişiklik yapılabilmektedir.</li>
+<li>Listede seçilen not ‘’Delete’’ butonu ile listeden çıkarılabilmektedir.</li>
+
+#### Teşekkür
+Eğitim sürecinde değerli bilgilerini bizimle paylaştığı için Kaan Yıldırım' a sonsuz teşekkür ederim.
+
+
+
