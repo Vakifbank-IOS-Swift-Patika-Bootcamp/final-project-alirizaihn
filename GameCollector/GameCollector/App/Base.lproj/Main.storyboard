@@ -137,6 +137,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Knc-Ck-s7a">
                                 <rect key="frame" x="16" y="228" width="361" height="34"/>
+                                <color key="backgroundColor" red="0.95243042710000003" green="0.95243030790000005" blue="0.95243030790000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -146,9 +147,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sjs-oV-8Pi">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" findInteractionEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjs-oV-8Pi">
                                 <rect key="frame" x="16" y="311" width="361" height="154"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.95243042710000003" green="0.95243030790000005" blue="0.95243030790000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -196,6 +197,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fIk-R7-6eb"/>
                     <connections>
+                        <outlet property="bgView" destination="Hj4-df-Ila" id="LXM-S2-lP0"/>
                         <outlet property="gameNameLabel" destination="Knc-Ck-s7a" id="7gN-ky-V3D"/>
                         <outlet property="noteTextView" destination="sjs-oV-8Pi" id="Nzf-9Q-Tvb"/>
                     </connections>

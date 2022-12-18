@@ -15,7 +15,7 @@ final class CreateNoteViewController: BaseViewController {
 
     @IBOutlet private weak var gameNameLabel: UITextField!
     @IBOutlet private weak var noteTextView: UITextView!
-    
+    @IBOutlet private var bgView: UIView!
     var note: Note?
     private var userNote = UserNoteModel(gameName: "", userNote: "", date: Date(), id: UUID())
     private var viewModel: CreateNoteViewProtocol = CreateNoteViewModel()
@@ -40,6 +40,10 @@ final class CreateNoteViewController: BaseViewController {
         userNote.gameName = gameNameLabel.text ?? ""
         viewModel.saveNote(note: note, userNoteModel: userNote)
         
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        bgView.endEditing(true)
+        view.endEditing(true)
     }
     
 }
