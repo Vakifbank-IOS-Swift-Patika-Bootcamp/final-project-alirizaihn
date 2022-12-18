@@ -10,11 +10,14 @@ Game Collector güncel oyunların, bu oyunlar ile ilgili yayınlanma tarihlerini
 <li>pod 'MaterialActivityIndicator'</li>
 <li>pod 'SwiftAlertView', '~> 2.2.1'</li>
 
-### XCODE Version
+### XCODE Versiyon
 <li>XCode Version 14.1</li>
 
-### Swift Version
+### Swift Versiyon
 <li>Swift 5 </li>
+
+### Minimum iOS versiyon
+<li>iOS 16.1</li>
 
 ### API
 <li>https://api.rawg.io/docs</li>
