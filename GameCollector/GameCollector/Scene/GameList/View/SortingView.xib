@@ -34,7 +34,7 @@
                                     </constraints>
                                     <items>
                                         <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="sZt-CH-vur"/>
-                                        <barButtonItem title="Vazgeç" id="ARb-wD-D8M">
+                                        <barButtonItem title="Cancel" id="ARb-wD-D8M">
                                             <connections>
                                                 <action selector="closeRatingFilter:" destination="iN0-l3-epB" id="53H-jZ-wBR"/>
                                             </connections>
@@ -45,14 +45,14 @@
                                                 <rect key="frame" x="115.66666666666669" y="5.6666666666666679" width="144" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sırala" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dh2-Jz-MyY">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dh2-Jz-MyY">
                                                         <rect key="frame" x="0.0" y="0.0" width="144" height="33"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="AccentColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="Dh2-Jz-MyY" firstAttribute="top" secondItem="eYg-QZ-4fA" secondAttribute="top" id="0rx-mY-Ft9"/>
                                                     <constraint firstAttribute="trailing" secondItem="Dh2-Jz-MyY" secondAttribute="trailing" id="ctv-cp-etw"/>
@@ -62,7 +62,7 @@
                                             </view>
                                         </barButtonItem>
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="uIc-Ai-WUQ"/>
-                                        <barButtonItem title="Seç" id="uWC-os-ees">
+                                        <barButtonItem title="Select" id="uWC-os-ees">
                                             <color key="tintColor" systemColor="tintColor"/>
                                             <connections>
                                                 <action selector="selectRatingFilter:" destination="iN0-l3-epB" id="hU9-gi-vkv"/>
